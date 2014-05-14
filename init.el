@@ -27,8 +27,6 @@
 ;; and running with Emacs.
 
 ;;; Code:
-;; Adds /lisp to the load path
-(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; Require Emacs' package functionality
 (require 'package)
