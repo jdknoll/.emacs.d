@@ -36,7 +36,10 @@
 (package-initialize)
 
 (require 'graphene)
+
+(require 'sr-speedbar)
 (global-set-key (kbd "s-s") 'sr-speedbar-toggle)
+(custom-set-faces)
 
 (require 'evil)
 (evil-mode 1)
