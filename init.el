@@ -35,17 +35,20 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
-;;include graphene into emacs
+;; include graphene into emacs
 (require 'graphene)
 
-;;setup custom theme
+;; enable evil-mode
+(evil-mode 1)
+
+;; setup custom theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'monokai t)
 
-;;Use Emacs terminfo, not system terminfo
+;; Use Emacs terminfo, not system terminfo
 (setq system-uses-terminfo nil)
 
-;;Set the location for backup files and configure
+;; Set the location for backup files and configure
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
 (setq delete-old-versions t
@@ -63,18 +66,12 @@
  '(sr-speedbar-right-side nil))
 
 
-;;setup evil mode
-(add-to-list 'load-path "~/.emacs.d/evil/") ; only without ELPA/el-get
-(require 'evil)
-(evil-mode 1)
-
-;;setup slime
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
-(add-to-list 'load-path "~/.emacs.d/slime")
+;; setup slime-mode
 (require 'slime-autoloads)
+(setq inferior-lisp-program "/opt/local/bin/sbcl")
 (slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
 
-;;Add emacs game score files
+;; Add emacs game score files
 (setq tetris-score-file "~/.emacs.d/scores/tetris-scores")
 (setq snake-score-file "~/.emacs.d/scores/snake-scores")
 
