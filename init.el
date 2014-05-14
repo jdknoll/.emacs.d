@@ -1,12 +1,53 @@
+;;; init.el --- Startup emacs file for emacs
+;; Copyright (C) 2014 Josiah Knoll
+;; Author: Josiah Knoll <josiahknoll@gmail.com>
+;; Created: 12 May 2014
+;; Keywords: startup-script
+
+;; This file is not part of GNU Emacs.
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, write to the Free Software
+;; Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
+
+;;; Commentary:
+
+;; This Emacs file includes the initalization script used to get up
+;; and running with Emacs.
+
+;;; Code:
+;; Adds /lisp to the load path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;;Add emacs tetris score file
-(setq tetris-score-file
-      "~/.emacs.d/scores/tetris-scores")
+;; Require Emacs' package functionality
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
 
-;;Add Emacs snake score file
-(setq snake-score-file
-      "~/.emacs.d/scores/snake-scores")
+(require 'graphene)
+(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
+
+(require 'evil)
+(evil-mode 1)
+
+;; setup slime-mode
+(require 'slime-autoloads)
+(setq inferior-lisp-program "/opt/local/bin/sbcl")
+(slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'monokai t)
 
 ;;Use Emacs terminfo, not system terminfo
 (setq system-uses-terminfo nil)
@@ -19,33 +60,13 @@
   kept-old-versions 2
   version-control t)
 
-;;(when window-system          ; start speedbar if we're using a window system
-  ;;  (speedbar t))
-
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("479eba125f9e97a0208b642a99eee1d816fa208fe3a06f73e444504beb0b17f7" default)))
  '(speedbar-show-unknown-files t)
  '(sr-speedbar-right-side nil))
 
-(require 'sr-speedbar)
-(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; Add emacs game score files
+(setq tetris-score-file "~/.emacs.d/scores/tetris-scores")
+(setq snake-score-file "~/.emacs.d/scores/snake-scores")
 
-
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(provide 'init)
+;;; init.el ends here
