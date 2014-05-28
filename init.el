@@ -6,6 +6,8 @@
 (require 'init-saves)
 (require 'init-themes)
 (require 'init-sr-speedbar)
+(require 'init-rails)
+(require 'init-slime)
 
 
 (custom-set-variables
